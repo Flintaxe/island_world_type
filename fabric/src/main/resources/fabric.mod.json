@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "island_world",
+  "version": "${version}",
+  "name": "Island World",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "Flintaxe"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "MIT",
+  "icon": "assets/island_world/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.flintaxe.fabric.IslandWorldModFabric"
+    ],
+    "client": [
+      "io.github.flintaxe.fabric.client.IslandWorldModFabricClient"
+    ]
+  },
+  "mixins": [
+    "island_world.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "architectury": ">=13.0.8"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

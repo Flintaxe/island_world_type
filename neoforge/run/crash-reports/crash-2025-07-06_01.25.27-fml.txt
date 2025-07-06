@@ -1,0 +1,105 @@
+---- Minecraft Crash Report ----
+// I'm sorry, Dave.
+
+Time: 2025-07-06 01:25:27
+Description: Mod loading failures have occurred; consult the issue messages for more details
+
+net.neoforged.neoforge.logging.CrashReportExtender$ModLoadingCrashException: Mod loading has failed
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread
+Stacktrace:
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.core.MappedRegistry.validateWrite(MappedRegistry.java:117) ~[neoforge-21.1.172-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40359-v2-neoforge-21.1.172.jar%23182!/:?] {re:mixin,pl:unprotect:A,re:classloading,pl:mixin:APP:neoforge.mixins.json:MappedRegistryAccessor from mod neoforge,pl:mixin:A,pl:unprotect:A}
+-- Mod loading issue for: island_world --
+Details:
+	Mod file: /home/patrik/IdeaProjects/island_world-1.21.1-fabric-neoforge-template/neoforge/build/resources/main/
+	Failure message: Island World (island_world) has failed to load correctly
+		java.lang.IllegalStateException: Registry is already frozen (trying to add key ResourceKey[minecraft:worldgen/density_function_type / island_world:islandgen])
+	Mod version: 1.0.0
+	Mod issues URL: <No issues URL found>
+	Exception message: java.lang.IllegalStateException: Registry is already frozen (trying to add key ResourceKey[minecraft:worldgen/density_function_type / island_world:islandgen])
+Stacktrace:
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.core.MappedRegistry.validateWrite(MappedRegistry.java:117) ~[neoforge-21.1.172-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40359-v2-neoforge-21.1.172.jar%23182!/:?] {re:mixin,pl:unprotect:A,re:classloading,pl:mixin:APP:neoforge.mixins.json:MappedRegistryAccessor from mod neoforge,pl:mixin:A,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.core.MappedRegistry.register(MappedRegistry.java:127) ~[neoforge-21.1.172-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40359-v2-neoforge-21.1.172.jar%23182!/:?] {re:mixin,pl:unprotect:A,re:classloading,pl:mixin:APP:neoforge.mixins.json:MappedRegistryAccessor from mod neoforge,pl:mixin:A,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.core.MappedRegistry.register(MappedRegistry.java:123) ~[neoforge-21.1.172-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40359-v2-neoforge-21.1.172.jar%23182!/:?] {re:mixin,pl:unprotect:A,re:classloading,pl:mixin:APP:neoforge.mixins.json:MappedRegistryAccessor from mod neoforge,pl:mixin:A,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.core.Registry.register(Registry.java:123) ~[neoforge-21.1.172-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40359-v2-neoforge-21.1.172.jar%23182!/:?] {re:computing_frames,pl:unprotect:A,re:classloading,pl:unprotect:A}
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.core.Registry.register(Registry.java:119) ~[neoforge-21.1.172-minecraft-merged-1.21.1-loom.mappings.1_21_1.layered+hash.40359-v2-neoforge-21.1.172.jar%23182!/:?] {re:computing_frames,pl:unprotect:A,re:classloading,pl:unprotect:A}
+	at TRANSFORMER/generated_98d224d@1/io.github.flintaxe.worldgen.levelgen.ModDensityFunctions.register(ModDensityFunctions.java:20) ~[3884798776281824384.jar%23187!/:?] {re:classloading}
+	at TRANSFORMER/generated_98d224d@1/io.github.flintaxe.worldgen.levelgen.ModDensityFunctions.init(ModDensityFunctions.java:16) ~[3884798776281824384.jar%23187!/:?] {re:classloading}
+	at TRANSFORMER/island_world@1.0.0/io.github.flintaxe.neoforge.IslandWorldModNeoForge.<init>(IslandWorldModNeoForge.java:16) ~[%23184!/:?] {re:classloading}
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[?:?] {}
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502) ~[?:?] {}
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486) ~[?:?] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.39/net.neoforged.fml.javafmlmod.FMLModContainer.constructMod(FMLModContainer.java:115) ~[loader-4.0.39.jar%2395!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.39/net.neoforged.fml.ModLoader.lambda$constructMods$3(ModLoader.java:153) ~[loader-4.0.39.jar%2395!/:4.0] {}
+	at MC-BOOTSTRAP/fml_loader@4.0.39/net.neoforged.fml.ModLoader.lambda$dispatchParallelTask$7(ModLoader.java:231) ~[loader-4.0.39.jar%2395!/:4.0] {}
+	at java.base/java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934) ~[?:?] {}
+	at java.base/java.util.concurrent.CompletableFuture$UniHandle.tryFire(CompletableFuture.java:911) ~[?:?] {}
+	at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:483) ~[?:?] {}
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:387) ~[?:?] {}
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1312) ~[?:?] {}
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1843) ~[?:?] {re:computing_frames}
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1808) ~[?:?] {re:computing_frames}
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:188) ~[?:?] {}
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.1
+	Minecraft Version ID: 1.21.1
+	Operating System: Linux (amd64) version 6.14.0-23-generic
+	Java Version: 21.0.7, Microsoft
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Microsoft
+	Memory: 695857104 bytes (663 MiB) / 1916796928 bytes (1828 MiB) up to 4181721088 bytes (3988 MiB)
+	CPUs: 4
+	Processor Vendor: GenuineIntel
+	Processor Name: Intel(R) Core(TM) i3-8100 CPU @ 3.60GHz
+	Identifier: Intel64 Family 6 Model 158 Stepping 11
+	Microarchitecture: Coffee Lake
+	Frequency (GHz): 3.60
+	Number of physical packages: 1
+	Number of physical CPUs: 4
+	Number of logical CPUs: 4
+	Graphics card #0 name: Ellesmere [Radeon RX 470/480/570/570X/580/580X/590]
+	Graphics card #0 vendor: Advanced Micro Devices, Inc. [AMD/ATI] (0x1002)
+	Graphics card #0 VRAM (MiB): 258.00
+	Graphics card #0 deviceId: 0x67df
+	Graphics card #0 versionInfo: unknown
+	Virtual memory max (MiB): 8487.20
+	Virtual memory used (MiB): 11477.64
+	Swap memory total (MiB): 512.00
+	Swap memory used (MiB): 154.66
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 7933.30, total: 7975.21
+	Space in storage for workdir (MiB): available: 312435.56, total: 468060.69
+	JVM Flags: 0 total; 
+	ModLauncher: 11.0.4+main.d2e20e43
+	ModLauncher launch target: forgeclientdev
+	ModLauncher services: 
+		sponge-mixin-0.15.2+mixin.0.8.7.jar mixin PLUGINSERVICE 
+		loader-4.0.39.jar slf4jfixer PLUGINSERVICE 
+		loader-4.0.39.jar runtime_enum_extender PLUGINSERVICE 
+		unprotect-1.2.0.jar unprotect PLUGINSERVICE 
+		at-modlauncher-10.0.1.jar accesstransformer PLUGINSERVICE 
+		loader-4.0.39.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-11.0.4.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-11.0.4.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		javafml@4.0
+		lowcodefml@4.0
+		minecraft@4.0
+	Mod List: 
+		architectury-neoforge-13.0.8.jar                  |Architectury                  |architectury                  |13.0.8              |Manifest: NOSIGNATURE
+		3884798776281824384.jar                           |generated_98d224d             |generated_98d224d             |1                   |Manifest: NOSIGNATURE
+		main                                              |Island World                  |island_world                  |1.0.0               |Manifest: NOSIGNATURE
+		neoforge-21.1.172-minecraft-merged-1.21.1-loom.map|Minecraft                     |minecraft                     |1.21.1              |Manifest: NOSIGNATURE
+		neoforge-21.1.172-minecraft-merged-1.21.1-loom.map|NeoForge                      |neoforge                      |21.1.172            |Manifest: NOSIGNATURE
+	Crash Report UUID: 738c334a-f965-4680-b9ea-9c85b6b565ea
+	FML: 4.0.39
+	NeoForge: 21.1.172

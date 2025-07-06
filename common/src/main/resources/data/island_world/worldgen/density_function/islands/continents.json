@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:max",
+    "argument1": {
+      "type": "minecraft:clamp",
+      "input": {
+        "type": "minecraft:add",
+        "argument1": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:shifted_noise",
+            "noise": "minecraft:continentalness",
+            "xz_scale": 0.25,
+            "y_scale": 0,
+            "shift_x": "minecraft:shift_x",
+            "shift_y": 0,
+            "shift_z": "minecraft:shift_z"
+          },
+          "argument2": 0.4
+        },
+        "argument2": -0.65
+      },
+      "min": -1,
+      "max": -0.25
+    },
+    "argument2": {
+      "type": "island_world:islandgen",
+      "center_x": 0.0,
+      "center_z": 0.0,
+      "base_radius": 16.0,
+      "variations": 12,
+      "min_value": -1.0,
+      "max_value": 0.5
+    }
+  }
+}
+

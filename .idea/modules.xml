@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/island_world.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/island_world.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/island_world.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/island_world.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/island_world.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/common/island_world.common.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/island_world.fabric.main.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/island_world.fabric.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/island_world.fabric.test.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/island_world.fabric.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/island_world.neoforge.main.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/island_world.neoforge.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/island_world.neoforge.test.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/island_world.neoforge.test.iml" />
+    </modules>
+  </component>
+</project>

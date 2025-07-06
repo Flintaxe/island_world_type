@@ -1,0 +1,2 @@
+/give @a minecraft:flint_and_steel
+/effect give @a minecraft:night_vision

@@ -1,0 +1,7 @@
+{
+  "generator.island_world.islands": "Island World",
+  "generator.island_world.islands.info": "Skyblock inspired world generator, but instead of void, there is water!",
+  "createWorld.customize.preset.island_world.islands": "Island World",
+
+  "block.island_world.item_in_bottle": "Item Bottle"
+}
