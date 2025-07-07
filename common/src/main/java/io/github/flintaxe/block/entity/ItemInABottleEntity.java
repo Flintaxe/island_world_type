@@ -35,7 +35,7 @@ public class ItemInABottleEntity extends BlockEntity implements Container, Rando
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) { //TODO: THIS ISN'T WORKING AT ALL HELP
         super.loadAdditional(tag, provider);
         if (tag.contains("LootTable", 8)) {
             this.lootTable = ResourceKey.create(Registries.LOOT_TABLE,
@@ -49,7 +49,7 @@ public class ItemInABottleEntity extends BlockEntity implements Container, Rando
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) { //TODO: THIS ISN'T WORKING AT ALL HELP
         super.saveAdditional(tag, provider);
         if (this.lootTable != null) {
             tag.putString("LootTable", this.lootTable.toString());
@@ -64,12 +64,12 @@ public class ItemInABottleEntity extends BlockEntity implements Container, Rando
 
     @Nullable
     @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
+    public Packet<ClientGamePacketListener> getUpdatePacket() { //TODO: THIS ISN'T WORKING AT ALL I THINK
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    public CompoundTag getUpdateTag(HolderLookup.Provider provider) { //TODO: THIS ISN'T WORKING AT ALL I THINK
         return saveWithoutMetadata(provider);
     }
 

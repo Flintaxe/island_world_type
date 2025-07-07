@@ -12,7 +12,7 @@ public final class IslandWorldModFabric implements ModInitializer {
         // However, some things (like resources) may still be uninitialized.
         // Proceed with mild caution.
 
-        //ModDensityFunctions.init();
+
 
         // Run our common setup.
         IslandWorldMod.init();
