@@ -1,5 +1,6 @@
 package io.github.flintaxe.block.entity;
 
+import io.github.flintaxe.IslandWorldMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -22,55 +23,64 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.ticks.ContainerSingleItem;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemInABottleEntity extends BlockEntity implements Container, RandomizableContainer {
-    @Nullable
-    protected ResourceKey<LootTable> lootTable;
-    protected long lootTableSeed = 0L;
+public class ItemInABottleEntity extends BlockEntity implements Container {
     public ItemStack item;
-
 
     public ItemInABottleEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ITEM_IN_BOTTLE_BENTITY.get(), blockPos, blockState);
         item = ItemStack.EMPTY;
+        //IslandWorldMod.LOGGER.info("Created ItemInABottleEntity at {}", blockPos);
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) { //TODO: THIS ISN'T WORKING AT ALL HELP
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        //IslandWorldMod.LOGGER.info("loadAdditional called with tag: {}", tag);
         super.loadAdditional(tag, provider);
-        if (tag.contains("LootTable", 8)) {
-            this.lootTable = ResourceKey.create(Registries.LOOT_TABLE,
-                    ResourceLocation.tryParse(tag.getString("LootTable")));
-            this.lootTableSeed = tag.getLong("LootTableSeed");
+
+        // Load the item stack
+        if (tag.contains("Item", 10)) { // 10 = CompoundTag type
+            CompoundTag itemTag = tag.getCompound("Item");
+            //IslandWorldMod.LOGGER.info("Found Item tag: {}", itemTag);
+            this.item = ItemStack.parseOptional(provider, itemTag);
         } else {
-            NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
-            ContainerHelper.loadAllItems(tag, items, provider);
-            this.item = items.get(0);
+            //IslandWorldMod.LOGGER.info("No Item tag found in NBT");
+            this.item = ItemStack.EMPTY;
         }
+        //IslandWorldMod.LOGGER.info("Loaded item: {}", this.item);
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) { //TODO: THIS ISN'T WORKING AT ALL HELP
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        //IslandWorldMod.LOGGER.info("saveAdditional called, item: {}", this.item);
         super.saveAdditional(tag, provider);
-        if (this.lootTable != null) {
-            tag.putString("LootTable", this.lootTable.toString());
-            if (this.lootTableSeed != 0L) {
-                tag.putLong("LootTableSeed", this.lootTableSeed);
-            }
+
+        if (!this.item.isEmpty()) {
+            // Use saveOptional and put the Tag directly
+            tag.put("Item", this.item.saveOptional(provider));
+            //IslandWorldMod.LOGGER.info("Saved item to NBT: {}", this.item.saveOptional(provider));
         } else {
-            NonNullList<ItemStack> items = NonNullList.withSize(1, this.item);
-            ContainerHelper.saveAllItems(tag, items, provider);
+            //IslandWorldMod.LOGGER.info("Item is empty, not saving");
         }
+        //IslandWorldMod.LOGGER.info("Final NBT tag: {}", tag);
     }
 
     @Nullable
     @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() { //TODO: THIS ISN'T WORKING AT ALL I THINK
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider provider) { //TODO: THIS ISN'T WORKING AT ALL I THINK
-        return saveWithoutMetadata(provider);
+    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+        CompoundTag tag = saveWithoutMetadata(provider);
+        //IslandWorldMod.LOGGER.info("getUpdateTag called, returning: {}", tag);
+        return tag;
+    }
+
+    // Add this method to help with client sync
+    public void onDataPacket(CompoundTag tag, HolderLookup.Provider provider) {
+        //IslandWorldMod.LOGGER.info("onDataPacket called with: {}", tag);
+        loadAdditional(tag, provider);
     }
 
     @Override
@@ -91,7 +101,12 @@ public class ItemInABottleEntity extends BlockEntity implements Container, Rando
     @Override
     public ItemStack removeItem(int i, int amount) {
         if (i == 0) {
-            return item.split(amount);
+            ItemStack result = item.split(amount);
+            if (!result.isEmpty()) {
+                setChanged();
+                //IslandWorldMod.LOGGER.info("Removed {} items, remaining: {}", amount, this.item);
+            }
+            return result;
         }
         return ItemStack.EMPTY;
     }
@@ -101,29 +116,32 @@ public class ItemInABottleEntity extends BlockEntity implements Container, Rando
         if (i == 0) {
             ItemStack itemStack = item;
             item = ItemStack.EMPTY;
+            //IslandWorldMod.LOGGER.info("Removed item without update: {}", itemStack);
             return itemStack;
         }
         return ItemStack.EMPTY;
-
     }
 
     @Override
     public void setItem(int i, ItemStack itemStack) {
         if (i == 0) {
+            ItemStack oldItem = this.item;
             item = itemStack;
+            setChanged();
+            //IslandWorldMod.LOGGER.info("Set item from {} to {}", oldItem, itemStack);
         }
-
     }
 
     @Override
     public boolean stillValid(Player player) {
         return Container.stillValidBlockEntity(this, player);
-
     }
 
     @Override
     public void clearContent() {
         item = ItemStack.EMPTY;
+        setChanged();
+        //IslandWorldMod.LOGGER.info("Cleared content");
     }
 
     public void drops() {
@@ -136,26 +154,7 @@ public class ItemInABottleEntity extends BlockEntity implements Container, Rando
                     item
             );
             item = ItemStack.EMPTY;
+            //IslandWorldMod.LOGGER.info("Dropped item at {}", this.worldPosition);
         }
-    }
-
-    @Override
-    public @Nullable ResourceKey<LootTable> getLootTable() {
-        return lootTable;// TODO
-    }
-
-    @Override
-    public void setLootTable(@Nullable ResourceKey<LootTable> resourceKey) {
-        lootTable = resourceKey;//TODO
-    }
-
-    @Override
-    public long getLootTableSeed() {
-        return lootTableSeed; //TODO
-    }
-
-    @Override
-    public void setLootTableSeed(long l) {
-        lootTableSeed = l;//TODO
     }
 }

@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public final class IslandWorldMod {
     public static final String MOD_ID = "island_world";
-    //public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static void init() {
         ModBlocks.init();

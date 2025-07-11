@@ -95,10 +95,10 @@ public class ItemInABottle extends BaseEntityBlock {
     protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if(level.getBlockEntity(blockPos) instanceof ItemInABottleEntity itemInABottleEntity) {
             if (itemInABottleEntity.isEmpty() && !itemStack.isEmpty()){
-                itemInABottleEntity.item = itemStack.copyWithCount(1);
+                itemInABottleEntity.setItem(0, itemStack.copyWithCount(1));
                 if (!player.isCreative()) itemStack.shrink(1);
                 level.playSound(player, blockPos, SoundEvents.ITEM_FRAME_PLACE, SoundSource.BLOCKS);
-                return ItemInteractionResult.CONSUME;
+                return ItemInteractionResult.SUCCESS;
             }
         }
         return ItemInteractionResult.FAIL;
